@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikita Sangani — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=Nunito+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fdf8f4;--bg2:#f7efe8;--ink:#2c2421;--muted:#8a7e76;--soft:#b09e93;
+  --rose:#c97b7b;--blush:#e8b4b8;--blush-light:#f5dfe1;--mauve:#9b7ea4;
+  --sage:#8fa68f;--cream:#fef9f5;--card:#ffffff;--border:rgba(180,160,148,0.25);
+  --dark:#1e1a17;--dark2:#2c2621;
+  --serif:'Fraunces',Georgia,serif;--sans:'Nunito Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.75;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--blush);color:var(--ink)}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes gentlePulse{0%,100%{opacity:0.4}50%{opacity:0.7}}
+@keyframes slideIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes typewriter{from{width:0}to{width:100%}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes tilt{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+
+/* SMOOTH PAGE TRANSITIONS */
+.page.active{animation:scaleIn .35s ease}
+
+/* MAGNETIC NAV HOVER */
+.nav-links a{display:inline-block}
+
+/* PARALLAX BLOBS */
+.blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:0.12;animation:gentlePulse 6s ease-in-out infinite}
+
+/* NOISE TEXTURE */
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:999}
+
+/* SCROLL PROGRESS BAR */
+.scroll-progress{position:fixed;top:56px;left:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--mauve),var(--blush));z-index:101;width:0%;transition:width .1s linear;border-radius:0 2px 2px 0}
+
+/* CURRENTLY VIBING - fun detail */
+.currently{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:50px;padding:8px 20px;font-size:11.5px;color:var(--muted);margin-top:20px;transition:all .3s}
+.currently:hover{border-color:var(--blush);transform:translateY(-2px)}
+.currently .dot{width:6px;height:6px;border-radius:50%;background:var(--rose);animation:gentlePulse 2s ease-in-out infinite}
+
+/* ACTIVE NAV DOT */
+.nav-links a.active::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--rose)}
+
+.blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:0.12;animation:gentlePulse 6s ease-in-out infinite}
+.blob-1{width:400px;height:400px;background:var(--blush);top:-100px;right:-100px}
+.blob-2{width:300px;height:300px;background:var(--mauve);bottom:-80px;left:-60px;animation-delay:3s}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(253,248,244,0.88);border-bottom:1px solid var(--border);transition:all .3s}
+.nav-inner{max-width:1060px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-name{font-family:var(--serif);font-size:18px;font-weight:500;color:var(--ink);letter-spacing:-0.3px;cursor:pointer;transition:color .2s}
+.nav-name:hover{color:var(--rose)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:400;letter-spacing:1px;text-transform:uppercase;transition:all .3s;cursor:pointer;position:relative;padding-bottom:4px}
+.nav-links a.active{color:var(--rose)}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--rose);transition:width .3s}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a:hover{color:var(--rose)}
+
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:70px}
+.page.active{display:block;animation:fadeIn .4s ease}
+.wrap{max-width:1060px;margin:0 auto;padding:0 32px}
+.section-label{font-size:10.5px;letter-spacing:4px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:10px}
+.section-title{font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:500;letter-spacing:-0.8px;color:var(--ink)}
+
+/* ═══════ HOME PAGE ═══════ */
+.hero{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 32px;position:relative;overflow:hidden}
+.hero-content{max-width:640px;position:relative;z-index:2}
+.hero-flower{font-size:40px;margin-bottom:20px;display:inline-block;animation:float 4s ease-in-out infinite;cursor:default;transition:transform .4s}
+.hero-flower:hover{transform:rotate(180deg) scale(1.2);animation-play-state:paused}
+.hero h1{font-family:var(--serif);font-size:clamp(36px,5.5vw,58px);font-weight:500;line-height:1.12;letter-spacing:-1.5px;margin-bottom:20px}
+.hero h1 em{font-style:italic;font-weight:300;color:var(--rose)}
+.hero-sub{font-size:16px;color:var(--muted);font-weight:300;max-width:460px;margin:0 auto 8px;line-height:1.85}
+.hero-seeking{font-size:12.5px;color:var(--soft);letter-spacing:0.5px;margin-bottom:36px}
+.hero-cta{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.hero-cta a{text-decoration:none;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:14px 34px;border-radius:50px;transition:all .4s cubic-bezier(.25,.46,.45,.94);cursor:pointer}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{background:var(--rose);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,123,123,0.3)}
+.btn-outline{border:1.5px solid var(--soft);color:var(--ink);background:transparent}
+.btn-outline:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:translateY(-2px)}
+
+/* QUOTE BANNER */
+.quote-banner{background:#2c2421;padding:56px 32px;text-align:center}
+.quote-banner p{font-family:var(--serif);font-size:clamp(18px,2.5vw,24px);font-weight:300;font-style:italic;color:rgba(250,246,241,0.75);line-height:1.6;max-width:600px;margin:0 auto 12px}
+.quote-banner .src{font-size:11px;color:var(--blush);letter-spacing:1px;text-transform:uppercase;opacity:0.7}
+
+/* ═══════ WORK PAGE ═══════ */
+.work-header{padding:60px 0 24px;text-align:center}
+.work-hint{font-size:12px;color:var(--soft);letter-spacing:0.3px;margin-bottom:24px;font-style:italic}
+.work-hint span{color:var(--rose);font-weight:500}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:40px}
+.filter-btn{background:transparent;border:1.5px solid var(--border);padding:8px 22px;border-radius:50px;font-size:11.5px;font-weight:500;font-family:var(--sans);cursor:pointer;transition:all .3s;letter-spacing:0.5px;color:var(--muted)}
+.filter-btn:hover{border-color:var(--rose);color:var(--rose)}
+.filter-btn.active{background:var(--rose);color:#fff;border-color:var(--rose)}
+
+/* ═══════ FLIP CARD GRID ═══════ */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px;padding-bottom:80px;perspective:1800px}
+
+/* Outer wrapper handles hover lift so it never fights the flip */
+.flip-card{position:relative;min-height:420px;cursor:pointer;background:transparent;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+.flip-card:hover{transform:translateY(-6px)}
+
+/* Inner element owns the 3D flip */
+.flip-inner{position:relative;width:100%;height:100%;min-height:inherit;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.4,.2,.2,1)}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-card.flipped .flip-face-front{pointer-events:none}
+
+.flip-face{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+
+/* FRONT — the note card */
+.flip-face-front{background:var(--card);border:1px solid var(--border);padding:32px;transition:box-shadow .4s,border-color .4s}
+.flip-card:hover:not(.flipped) .flip-face-front{box-shadow:0 20px 50px rgba(0,0,0,0.07);border-color:var(--blush)}
+
+.flip-face-front .accent-dot{width:10px;height:10px;border-radius:50%;margin-bottom:14px}
+.flip-face-front .p-num{font-family:var(--serif);font-size:11px;font-style:italic;color:var(--soft);margin-bottom:6px}
+.flip-face-front h3{font-family:var(--serif);font-size:19px;font-weight:500;line-height:1.3;margin-bottom:8px;transition:color .3s}
+.flip-card:hover:not(.flipped) .flip-face-front h3{color:var(--rose)}
+.flip-face-front .p-role{font-size:11.5px;color:var(--rose);font-weight:500;margin-bottom:12px;letter-spacing:0.3px}
+.flip-face-front .p-teaser{font-size:13.5px;color:var(--muted);line-height:1.7;flex-grow:1}
+.flip-face-front .p-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+.flip-face-front .flip-hint{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);font-size:10.5px;color:var(--soft);letter-spacing:0.8px;text-transform:uppercase;display:flex;align-items:center;justify-content:flex-end;gap:6px;transition:color .3s}
+.flip-face-front .flip-hint svg{transition:transform .4s}
+.flip-card:hover:not(.flipped) .flip-face-front .flip-hint{color:var(--rose)}
+.flip-card:hover:not(.flipped) .flip-face-front .flip-hint svg{transform:rotate(180deg)}
+
+/* Flagship flair on front */
+.flip-card.flagship .flip-face-front{background:linear-gradient(135deg,#fef9f5,#f5dfe1 40%,#fef9f5);border:1.5px solid var(--blush)}
+.flip-card.flagship .flip-face-front::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--mauve),var(--blush),var(--rose));background-size:300% 100%;animation:shimmer 4s linear infinite}
+@keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+
+.p-tag{background:var(--blush-light);color:var(--rose);font-size:10px;font-weight:500;padding:4px 10px;border-radius:16px;letter-spacing:0.2px}
+
+/* BACK — the case study */
+.flip-face-back{background:var(--bg);border:1.5px solid var(--blush);transform:rotateY(180deg);padding:28px 28px 24px;overflow-y:auto;overscroll-behavior:contain}
+.flip-face-back::-webkit-scrollbar{width:6px}
+.flip-face-back::-webkit-scrollbar-track{background:transparent}
+.flip-face-back::-webkit-scrollbar-thumb{background:var(--blush-light);border-radius:3px}
+.flip-face-back::-webkit-scrollbar-thumb:hover{background:var(--blush)}
+
+/* Back-face control cluster (expand + close) */
+.flip-back-controls{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:3}
+.flip-icon-btn{width:28px;height:28px;border-radius:50%;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted);cursor:pointer;transition:all .25s;font-family:var(--sans);line-height:1;padding:0}
+.flip-icon-btn:hover{background:var(--rose);color:#fff;border-color:var(--rose);transform:scale(1.08)}
+
+.flip-back-hint{text-align:center;font-size:10px;color:var(--soft);letter-spacing:0.8px;text-transform:uppercase;margin-top:16px;padding-top:12px;border-top:1px dashed var(--border);opacity:0.7;font-style:italic}
+
+.flip-face-back .case-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:6px;padding-right:70px}
+.flip-face-back .case-title{font-family:var(--serif);font-size:19px;font-weight:500;line-height:1.25;margin-bottom:4px;padding-right:70px}
+.flip-face-back .case-role{font-size:11px;color:var(--rose);margin-bottom:14px;line-height:1.55}
+.flip-face-back .case-section{margin-bottom:12px}
+.flip-face-back .case-section-label{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:4px}
+.flip-face-back .case-section p{font-size:12.5px;color:#4a4038;line-height:1.65}
+.flip-face-back .case-section.case-why{background:linear-gradient(to right,rgba(245,223,225,0.5),rgba(245,223,225,0.15));border-left:2px solid var(--rose);padding:10px 12px;border-radius:0 8px 8px 0;margin:12px 0}
+.flip-face-back .case-section.case-why .case-section-label{color:var(--rose);margin-bottom:5px}
+.flip-face-back .case-section.case-why p{color:#3d3530;font-style:italic}
+.flip-face-back .case-highlights{list-style:none;padding:0;margin:10px 0}
+.flip-face-back .case-highlights li{font-size:12px;color:#5a5048;padding:3px 0 3px 16px;position:relative;line-height:1.55}
+.flip-face-back .case-highlights li::before{content:'✦';position:absolute;left:0;color:var(--blush);font-size:9px;top:6px}
+.flip-face-back .case-italic{font-style:italic;color:var(--rose);font-size:12px;margin-top:8px;line-height:1.6;padding:10px 12px;background:var(--blush-light);border-radius:10px;border-left:2px solid var(--rose)}
+.flip-face-back .case-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.flip-face-back .case-cta{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--border)}
+.flip-face-back .case-cta a{display:inline-block;font-size:10.5px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;padding:9px 18px;border-radius:50px;text-decoration:none;transition:all .3s}
+.flip-face-back .case-cta a.primary{background:var(--rose);color:#fff}
+.flip-face-back .case-cta a.primary:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 6px 16px rgba(201,123,123,0.3)}
+.flip-face-back .case-cta a.outline{border:1.5px solid var(--rose);color:var(--rose)}
+.flip-face-back .case-cta a.outline:hover{background:var(--rose);color:#fff;transform:translateY(-2px)}
+
+/* ═══════ EXPAND MODAL ═══════ */
+.expand-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:rgba(28,22,19,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow-y:auto;padding:40px 20px;animation:fadeIn .3s ease}
+.expand-overlay.open{display:flex;justify-content:center;align-items:flex-start}
+.expand-panel{background:var(--bg);max-width:760px;width:100%;border-radius:24px;padding:48px 52px;position:relative;animation:slideIn .4s ease;margin:20px auto;box-shadow:0 24px 80px rgba(0,0,0,0.2)}
+.expand-close{position:absolute;top:18px;right:22px;width:36px;height:36px;border-radius:50%;background:var(--cream);border:1px solid var(--border);font-size:22px;color:var(--muted);cursor:pointer;transition:all .25s;font-family:var(--sans);line-height:1;display:flex;align-items:center;justify-content:center;padding:0}
+.expand-close:hover{background:var(--rose);color:#fff;border-color:var(--rose);transform:rotate(90deg)}
+.expand-panel .expand-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:10px}
+.expand-panel .expand-title{font-family:var(--serif);font-size:32px;font-weight:500;line-height:1.2;margin-bottom:8px;letter-spacing:-0.5px}
+.expand-panel .expand-role{font-size:13.5px;color:var(--rose);margin-bottom:28px;line-height:1.55}
+.expand-panel .expand-section{margin-bottom:20px}
+.expand-panel .expand-section-label{font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px}
+.expand-panel .expand-section p{font-size:15px;color:#4a4038;line-height:1.85}
+.expand-panel .expand-section.expand-why{background:linear-gradient(to right,rgba(245,223,225,0.55),rgba(245,223,225,0.15));border-left:3px solid var(--rose);padding:18px 22px;border-radius:0 12px 12px 0;margin:22px 0}
+.expand-panel .expand-section.expand-why .expand-section-label{color:var(--rose);margin-bottom:6px}
+.expand-panel .expand-section.expand-why p{color:#3d3530;font-style:italic;font-size:14.5px}
+.expand-panel .expand-italic{font-style:italic;color:var(--rose);font-size:14.5px;line-height:1.7;padding:18px 22px;background:var(--blush-light);border-radius:14px;border-left:3px solid var(--rose);margin:20px 0}
+.expand-panel .expand-highlights{list-style:none;padding:0;margin:20px 0}
+.expand-panel .expand-highlights li{font-size:14px;color:#5a5048;padding:5px 0 5px 22px;position:relative;line-height:1.7}
+.expand-panel .expand-highlights li::before{content:'✦';position:absolute;left:0;color:var(--blush);font-size:11px;top:9px}
+.expand-panel .expand-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:24px}
+.expand-panel .expand-cta{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--border)}
+.expand-panel .expand-cta a{display:inline-block;font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:13px 28px;border-radius:50px;text-decoration:none;transition:all .3s}
+.expand-panel .expand-cta a.primary{background:var(--rose);color:#fff}
+.expand-panel .expand-cta a.primary:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,123,123,0.3)}
+.expand-panel .expand-cta a.outline{border:1.5px solid var(--rose);color:var(--rose)}
+.expand-panel .expand-cta a.outline:hover{background:var(--rose);color:#fff;transform:translateY(-2px)}
+@media(max-width:600px){.expand-panel{padding:40px 28px;margin:10px auto}.expand-panel .expand-title{font-size:24px}}
+
+/* ═══════ ABOUT PAGE ═══════ */
+.about-header{padding:60px 0 48px;text-align:center}
+.about-intro{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start;margin-bottom:56px}
+.about-photo{width:100%;border-radius:20px;box-shadow:0 16px 48px rgba(0,0,0,0.08);transition:all .5s cubic-bezier(.25,.46,.45,.94);border:4px solid #fff}
+.about-photo:hover{transform:scale(1.03) rotate(-1.5deg);box-shadow:0 24px 60px rgba(201,123,123,0.15)}
+.about-text p{font-size:15px;color:#4a4038;line-height:1.9;margin-bottom:16px}
+.about-text p:first-child::first-letter{font-family:var(--serif);font-size:48px;float:left;line-height:0.85;margin:6px 12px 0 0;color:var(--rose);font-weight:500}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:40px 0}
+.stat{text-align:center;padding:20px 12px;background:var(--cream);border-radius:16px;border:1px solid var(--border);transition:all .3s}
+.stat:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.06);border-color:var(--blush)}
+.stat .num{font-family:var(--serif);font-size:30px;font-weight:500;color:var(--rose)}
+.stat .label{font-size:11px;color:var(--muted);margin-top:4px}
+
+.edu-row{display:flex;gap:16px;margin-bottom:48px}
+.edu-card{flex:1;background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:20px;transition:all .3s}
+.edu-card:hover{border-color:var(--blush);transform:translateY(-2px)}
+.edu-card h4{font-family:var(--serif);font-size:15px;font-weight:500;margin-bottom:4px}
+.edu-card p{font-size:12px;color:var(--muted)}
+
+/* BEYOND WORK */
+.beyond{padding:56px 0;border-top:1px solid var(--border)}
+.beyond-title{font-family:var(--serif);font-size:26px;font-weight:500;margin-bottom:24px;text-align:center}
+.beyond-text{max-width:640px;margin:0 auto 28px;text-align:center}
+.beyond-text p{font-size:14.5px;color:#5a5048;line-height:1.85;margin-bottom:14px}
+.beyond-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.beyond-pill{background:var(--blush-light);color:var(--rose);padding:8px 20px;border-radius:50px;font-size:12.5px;font-weight:500;transition:all .3s}
+.beyond-pill:hover{background:var(--rose);color:#fff;transform:translateY(-2px)}
+
+/* SKILLS SECTION — WARM DARK */
+.skills-section{background:#2c2421;padding:80px 32px;position:relative;overflow:hidden}
+.skills-section::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:rgba(201,123,123,0.08);filter:blur(80px);pointer-events:none}
+.skills-section .section-label{color:var(--blush)}
+.skills-section .section-title{color:#faf6f1}
+.skills-group{margin-bottom:32px}
+.skills-group-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blush);font-weight:600;text-align:center;margin-bottom:12px}
+.skills-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:740px;margin:0 auto}
+.skill-pill{background:rgba(250,246,241,0.06);border:1px solid rgba(250,246,241,0.12);padding:9px 18px;border-radius:50px;font-size:12px;font-weight:400;color:rgba(250,246,241,0.7);transition:all .3s;cursor:default}
+.skill-pill:hover{background:var(--rose);color:#fff;border-color:var(--rose);transform:translateY(-3px) scale(1.04);box-shadow:0 6px 20px rgba(201,123,123,0.3)}
+.think-block{max-width:580px;margin:48px auto 0;text-align:center;background:rgba(250,246,241,0.05);border:1px solid rgba(250,246,241,0.1);border-radius:20px;padding:36px}
+.think-block p{color:rgba(250,246,241,0.5);font-size:14px;line-height:2;margin-bottom:8px}
+.think-block .bold-line{color:var(--blush);font-style:italic;margin-top:16px;font-size:15px}
+.exploring-block{max-width:460px;margin:32px auto 0;text-align:center}
+.exploring-pill{background:transparent;border:1.5px dashed rgba(232,180,184,0.4);padding:9px 18px;border-radius:50px;font-size:12px;font-weight:400;color:var(--blush);transition:all .3s;cursor:default;display:inline-block;margin:4px}
+.exploring-pill:hover{background:rgba(232,180,184,0.15);border-style:solid;transform:translateY(-2px)}
+
+/* ═══════ EXPERIENCE PAGE ═══════ */
+.exp-header{padding:60px 0 40px;text-align:center}
+.exp-timeline{max-width:700px;margin:0 auto;padding-bottom:80px}
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:20px;transition:all .3s;position:relative;overflow:hidden}
+.exp-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.06);border-color:var(--blush)}
+.exp-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--blush);border-radius:20px 0 0 20px}
+.exp-img{width:100%;border-radius:12px;margin-top:14px;border:1px solid var(--border);object-fit:contain;max-height:280px;animation:fadeUp .5s ease .1s both;background:var(--cream)}
+.exp-img-placeholder{width:100%;border-radius:12px;margin-top:14px;border:1px dashed var(--blush);background:var(--blush-light);padding:20px;text-align:center;font-size:11px;color:var(--rose)}
+.exp-img-placeholder span{display:block;font-size:9px;color:var(--soft);margin-top:4px}
+.exp-date{font-size:11.5px;color:var(--rose);letter-spacing:0.5px;margin-bottom:6px;font-weight:500}
+.exp-title{font-family:var(--serif);font-size:19px;font-weight:500;margin-bottom:3px}
+.exp-org{font-size:13px;color:var(--muted);margin-bottom:10px}
+.exp-desc{font-size:13.5px;color:#6a6058;line-height:1.8}
+
+/* CERTS */
+.cert-section{padding:60px 0 80px}
+.cert-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.cert-card{background:var(--cream);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;transition:all .35s}
+.cert-card:hover{transform:translateY(-4px) rotate(-1deg);box-shadow:0 12px 32px rgba(0,0,0,0.06);border-color:var(--blush)}
+.cert-icon{font-size:26px;margin-bottom:8px}
+.cert-name{font-family:var(--serif);font-size:14.5px;font-weight:500;margin-bottom:3px}
+.cert-issuer{font-size:11px;color:var(--muted)}
+
+/* ═══════ CONTACT PAGE ═══════ */
+.contact-page{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center;background:#2c2421;padding:60px 32px;position:relative;overflow:hidden}
+.contact-inner{text-align:center;max-width:500px;position:relative;z-index:2}
+.contact-flower{font-size:36px;display:inline-block;animation:float 5s ease-in-out infinite;margin-bottom:20px}
+.contact-inner .section-label{color:var(--blush)}
+.contact-inner .section-title{color:#faf6f1;margin-bottom:8px}
+.contact-sub{color:rgba(250,246,241,0.5);font-size:14.5px;margin-bottom:36px;line-height:1.7}
+.contact-links{display:flex;flex-direction:column;gap:12px;align-items:center}
+.contact-link{font-size:14px;color:rgba(250,246,241,0.8);text-decoration:none;background:rgba(250,246,241,0.06);border:1px solid rgba(250,246,241,0.12);padding:14px 32px;border-radius:50px;transition:all .35s;display:inline-block;min-width:280px}
+.contact-link:hover{background:var(--rose);color:#fff;border-color:var(--rose);transform:translateY(-3px);box-shadow:0 8px 24px rgba(201,123,123,0.3)}
+.contact-loc{font-size:13px;color:rgba(250,246,241,0.35);margin-top:12px}
+
+footer{text-align:center;padding:24px;font-size:11px;color:rgba(250,246,241,0.4);letter-spacing:0.5px;background:#2c2421}
+
+/* MOBILE NAV */
+.nav-toggle{display:none;background:none;border:none;font-size:22px;color:var(--ink);cursor:pointer}
+@media(max-width:768px){
+  .nav-links{position:fixed;top:56px;left:0;right:0;background:var(--bg);flex-direction:column;align-items:center;gap:0;padding:0;max-height:0;overflow:hidden;transition:max-height .3s;border-bottom:1px solid var(--border)}
+  .nav-links.open{max-height:300px;padding:16px 0}
+  .nav-links a{padding:12px 0;font-size:14px}
+  .nav-toggle{display:block}
+  .about-intro{grid-template-columns:1fr;text-align:center}
+  .about-photo{max-width:240px;margin:0 auto}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .edu-row{flex-direction:column}
+  .project-grid{grid-template-columns:1fr}
+  .flip-card{min-height:400px}
+  .exp-card{padding:24px}
+  .contact-page{padding:40px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="nav-inner">
+  <div class="nav-name" onclick="showPage('home')">nikita sangani</div>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  <ul class="nav-links">
+    <li><a onclick="showPage('work')" id="nav-work">Work</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('experience')" id="nav-experience">Experience</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+</div>
+</nav>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══════ HOME ═══════ -->
+<div class="page active" id="page-home">
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-content">
+    <div id="greeting" style="font-family:var(--serif);font-size:15px;color:var(--rose);letter-spacing:0.3px;margin-bottom:16px;opacity:0;animation:fadeUp .6s ease .05s both;font-style:italic;font-weight:300"></div>
+    <div class="hero-flower">✿</div>
+    <h1>I turn data into strategy and bring it to life through <em>real, buildable solutions</em></h1>
+    <p class="hero-seeking">Exploring roles in marketing strategy, product strategy, and marketing analytics</p>
+    <div class="hero-cta">
+      <a class="btn-primary" onclick="showPage('work')">View My Work</a>
+      <a class="btn-outline" onclick="showPage('contact')">Say Hello</a>
+    </div>
+    <p style="font-size:10.5px;color:var(--soft);margin-top:28px;letter-spacing:0.5px;opacity:0.7">Built from scratch using HTML, CSS & AI-assisted development</p>
+  </div>
+</section>
+<div class="quote-banner">
+  <p>"We are looking at business from a human value."</p>
+  <p>"Do something that causes a problem — and provide a solution."</p>
+  <span class="src">Words from my professors that guide how I work</span>
+</div>
+</div>
+
+<!-- ═══════ WORK ═══════ -->
+<div class="page" id="page-work">
+<div class="wrap">
+  <div class="work-header">
+    <div class="section-label">Selected Work</div>
+    <div class="section-title">Projects That Tell the Story</div>
+    <div class="work-hint">✿ <span>Click any card</span> to flip it and read the story</div>
+  </div>
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
+    <button class="filter-btn" onclick="filterProjects('strategy',this)">Strategy</button>
+    <button class="filter-btn" onclick="filterProjects('analytics',this)">Analytics</button>
+    <button class="filter-btn" onclick="filterProjects('creative',this)">Creative</button>
+    <button class="filter-btn" onclick="filterProjects('client',this)">Client Work</button>
+  </div>
+  <div class="project-grid" id="projectGrid">
+    <!-- Flip cards will be rendered by JS -->
+  </div>
+</div>
+</div>
+
+<!-- ═══════ ABOUT ═══════ -->
+<div class="page" id="page-about">
+<div class="wrap">
+  <div class="about-header">
+    <div class="section-label">About Me</div>
+    <div class="section-title">The Person Behind the Work</div>
+  </div>
+  <div class="about-intro">
+    <div><img src="nikita-photo.jpeg" alt="Nikita Sangani" class="about-photo"></div>
+    <div class="about-text">
+      <p>Hi, I'm Nikita — a strategist who works where data, creative, and human behavior actually meet. Not as separate disciplines, but as the same question asked three different ways.</p>
+
+      <p style="margin-top:20px;margin-bottom:4px"><strong style="color:var(--rose);font-size:11px;letter-spacing:1.5px;text-transform:uppercase">What Drives Me</strong></p>
+      <p>I'm more interested in why people decide than what they decide. The patterns behind the choice, the emotion underneath the behavior — that's where the real strategy lives. I'd rather question a brief than execute the wrong one cleanly.</p>
+
+      <p style="margin-top:20px;margin-bottom:4px"><strong style="color:var(--rose);font-size:11px;letter-spacing:1.5px;text-transform:uppercase">How I Think</strong></p>
+      <p>Creativity and analytics aren't opposites to me — they're a feedback loop. I use data to pressure-test instinct, and instinct to ask better questions of the data. The work I care about changes a decision, not just a deck.</p>
+
+      <p style="margin-top:20px;margin-bottom:4px"><strong style="color:var(--rose);font-size:11px;letter-spacing:1.5px;text-transform:uppercase">Where I Thrive</strong></p>
+      <p>In rooms where the question "why are we assuming that?" is welcome — and where curiosity, collaboration, and building something real matter more than looking busy.</p>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="num">8</div><div class="label">Projects</div></div>
+    <div class="stat"><div class="num">7+</div><div class="label">Teams Led</div></div>
+    <div class="stat"><div class="num">20K</div><div class="label">Monthly Views</div></div>
+    <div class="stat"><div class="num">5K+</div><div class="label">Records Analyzed</div></div>
+  </div>
+  <div class="edu-row">
+    <div class="edu-card"><h4>New York University</h4><p>M.S. Integrated Marketing — Marketing Analytics · Spring 2026</p></div>
+    <div class="edu-card"><h4>University of Houston</h4><p>B.B.A. Management Information Systems & Marketing · Spring 2024</p></div>
+  </div>
+
+  <div class="beyond">
+    <div class="section-label" style="text-align:center">Beyond the Work</div>
+    <div class="beyond-title">A Little More About Me</div>
+    <div class="beyond-text">
+      <p>I'm someone who's always curious, always exploring, always looking for the next thing that makes me feel alive. Whether that's trying a new restaurant, binge-watching anime, getting lost in a good book, or dancing until my feet hurt — I believe the best ideas come from living fully.</p>
+      <p>I've trained in Kathak for over 11 years and perform Raas competitively, but creativity shows up in everything I do — from the poetry I write to the illustrations I draw to the concerts I lose myself in. I naturally step into leadership when working with others because I genuinely care about making people feel included and supported.</p>
+      <p>At my core, I'm someone who loves connecting with people, trying new things, and finding inspiration in the everyday. I think that energy is what makes my work feel human — because it comes from someone who actually is.</p>
+    </div>
+    <div class="beyond-pills">
+      <span class="beyond-pill">Kathak Dancer (11+ yrs)</span>
+      <span class="beyond-pill">Published Poet</span>
+      <span class="beyond-pill">Traveler</span>
+      <span class="beyond-pill">Artist & Illustrator</span>
+      <span class="beyond-pill">Huge Foodie</span>
+      <span class="beyond-pill">Concert Lover</span>
+      <span class="beyond-pill">Anime Fan</span>
+      <span class="beyond-pill">Bookworm</span>
+      <span class="beyond-pill">Team Builder</span>
+      <span class="beyond-pill">Trying New Things</span>
+    </div>
+
+    <!-- PHOTO GRID — file names must match EXACTLY (case-sensitive). If an image doesn't appear, check the actual filename on disk. -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px;max-width:700px;margin-left:auto;margin-right:auto">
+      <img src="dance-photo.jpg" alt="Dance" style="width:100%;border-radius:16px;object-fit:cover;object-position:center top;aspect-ratio:4/5;background:var(--blush-light)">
+      <img src="event-photo.jpg" alt="Leadership" style="width:100%;border-radius:16px;object-fit:cover;object-position:center top;aspect-ratio:4/5;background:var(--blush-light)">
+      <img src="travel-photo.jpg" alt="Travel" style="width:100%;border-radius:16px;object-fit:cover;object-position:center top;aspect-ratio:4/5;background:var(--blush-light)">
+    </div>
+
+    <!-- CURRENTLY VIBING -->
+    <div style="text-align:center;margin-top:32px">
+      <div class="currently"><span class="dot"></span> currently building Overburnt & finishing my master's at NYU</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════ EXPERIENCE ═══════ -->
+<div class="page" id="page-experience">
+<div class="wrap">
+  <div class="exp-header">
+    <div class="section-label">Experience & Leadership</div>
+    <div class="section-title">Where I've Made an Impact</div>
+  </div>
+  <div class="exp-timeline">
+    <div class="exp-card"><div class="exp-date">Fall 2025 — Present</div><div class="exp-title">Founder — Overburnt</div><div class="exp-org">AI-Powered Burnout Companion · Pitched at Wix NYC · NYU Startup Accelerator Bootcamp</div><p class="exp-desc">Founded an AI companion that adapts to a user's emotional state — reframing burnout as decision fatigue, not a scheduling problem. Owned product vision, AI interaction logic, prototype, and an investor-ready financial model projecting 12% monthly user growth. Pitched at Wix NYC; completed NYU Startup Accelerator Bootcamp (March 2026); currently scaling as NYU capstone.</p><img class="exp-img" src="overburnt-ui.jpg" alt="Overburnt app screenshot"></div>
+    <div class="exp-card"><div class="exp-date">Summer 2025 — Spring 2026</div><div class="exp-title">Digital Production Chair</div><div class="exp-org">NYU Graduate Student Council</div><p class="exp-desc">Led digital strategy for 10+ events generating 20K average monthly Instagram views and 500+ interactions per post. Scaled team capability by running workshops on video editing, audio engineering, and photography. Coordinated across teams supporting 326 events and 5,194 attendees.</p><img class="exp-img" src="gsc-event.jpg" alt="NYU GSC event"></div>
+    <div class="exp-card"><div class="exp-date">Summer 2023</div><div class="exp-title">Dual HR & Marketing Intern</div><div class="exp-org">BioUrja · Houston, TX</div><p class="exp-desc">Supported HR and marketing operations across dual functions — sourced and screened 100+ targeted candidates, and shipped 15+ internal marketing assets including Canva collateral and weekly campaign emails that drove employee engagement.</p></div>
+    <div class="exp-card"><div class="exp-date">Fall 2021 — Spring 2024</div><div class="exp-title">Fundraising Chair & Dancer</div><div class="exp-org">Roarin' Raas · University of Houston</div><p class="exp-desc">Raised $2,000+ through sponsorship strategy and secured a $1,300 BeReal brand partnership by pitching the org as a Gen Z cultural channel. Competed and performed at National Raas Competitions representing the University of Houston.</p><img class="exp-img" src="raas-performance.jpeg" alt="Roarin Raas performance" onerror="this.style.display='none'"></div>
+  </div>
+  <div class="cert-section">
+    <div style="text-align:center;margin-bottom:32px"><div class="section-label">Credentials</div><div class="section-title">Certifications & Honors</div></div>
+    <div class="cert-row">
+      <div class="cert-card"><div class="cert-icon">📊</div><div class="cert-name">Google Analytics</div><div class="cert-issuer">Google · Dec 2025</div></div>
+      <div class="cert-card"><div class="cert-icon">🔍</div><div class="cert-name">Google Ads Search</div><div class="cert-issuer">Google · Dec 2025</div></div>
+      <div class="cert-card"><div class="cert-icon">🚀</div><div class="cert-name">NYU Startup Accelerator</div><div class="cert-issuer">Leslie Entrepreneurial Institute · Mar 2026</div></div>
+      <div class="cert-card"><div class="cert-icon">🏆</div><div class="cert-name">Dean's List (4 semesters)</div><div class="cert-issuer">University of Houston · 2021–2024</div></div>
+    <div class="cert-card"><div class="cert-icon">📱</div><div class="cert-name">Hootsuite Social Media Marketing</div><div class="cert-issuer">Hootsuite Academy</div></div>
+    <div class="cert-card"><div class="cert-icon">📱</div><div class="cert-name">Hootsuite Platform Certification</div><div class="cert-issuer">Hootsuite Academy</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="skills-section">
+<div class="wrap">
+  <div style="text-align:center;margin-bottom:48px"><div class="section-label">Capabilities</div><div class="section-title">What I Bring</div></div>
+  <div class="skills-group"><div class="skills-group-label">Strategy & Creative</div><div class="skills-row"><span class="skill-pill">Campaign Strategy</span><span class="skill-pill">Brand Development</span><span class="skill-pill">Storytelling</span><span class="skill-pill">Creative Direction</span><span class="skill-pill">Social Media Strategy</span><span class="skill-pill">Consumer Behavior</span><span class="skill-pill">Competitive Analysis</span><span class="skill-pill">Content Marketing</span></div></div>
+  <div class="skills-group"><div class="skills-group-label">Research & Analytics</div><div class="skills-row"><span class="skill-pill">Data-Driven Insights</span><span class="skill-pill">Customer Segmentation</span><span class="skill-pill">K-Means Clustering</span><span class="skill-pill">Decision Trees</span><span class="skill-pill">A/B Testing</span><span class="skill-pill">Survey Design</span><span class="skill-pill">Data Visualization</span><span class="skill-pill">Google Analytics</span><span class="skill-pill">SQL</span></div></div>
+  <div class="skills-group"><div class="skills-group-label">Product & Growth</div><div class="skills-row"><span class="skill-pill">Product Thinking</span><span class="skill-pill">Growth Strategy</span><span class="skill-pill">Conversion Optimization</span><span class="skill-pill">End-to-End Problem Solving</span><span class="skill-pill">Data Storytelling</span><span class="skill-pill">AI Product Thinking</span><span class="skill-pill">Prompt Design</span><span class="skill-pill">Personalization Systems</span></div></div>
+  <div class="skills-group"><div class="skills-group-label">Technical & Production</div><div class="skills-row"><span class="skill-pill">HTML / CSS</span><span class="skill-pill">Java</span><span class="skill-pill">Canva</span><span class="skill-pill">Adobe Suite</span><span class="skill-pill">CapCut</span><span class="skill-pill">Video Editing</span><span class="skill-pill">Photography</span></div></div>
+  <div class="skills-group"><div class="skills-group-label">Languages</div><div class="skills-row"><span class="skill-pill">English (Native)</span><span class="skill-pill">Gujarati (Native)</span><span class="skill-pill">Spanish (Conversational)</span></div></div>
+  <div class="think-block">
+    <div class="skills-group-label" style="margin-bottom:16px">How I Think</div>
+    <p>I start with behavior, not assumptions.</p>
+    <p>I use data to validate intuition — not replace it.</p>
+    <p>I care about solutions that actually work, not just look good.</p>
+    <p class="bold-line">Data shouldn't just be analyzed — it should change decisions.</p>
+  </div>
+  <div class="exploring-block">
+    <div class="skills-group-label" style="margin-bottom:12px">Currently Exploring</div>
+    <span class="exploring-pill">SQL (Advanced)</span>
+    <span class="exploring-pill">Front-End Dev</span>
+    <span class="exploring-pill">AI for Decision-Making & Personalization</span>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══════ CONTACT ═══════ -->
+<div class="page" id="page-contact">
+<div class="contact-page">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="contact-inner">
+    <div class="contact-flower">✿</div>
+    <div class="section-label">Let's Connect</div>
+    <div class="section-title">Ready to build something together?</div>
+    <p class="contact-sub">I'm always open to conversations about strategy, data, creative projects, and new opportunities.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:nikitasangani1010@gmail.com">✉ &nbsp; nikitasangani1010@gmail.com</a>
+      <a class="contact-link" href="tel:2818890712">📱 &nbsp; 281-889-0712</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/nikita-sangani/" target="_blank">🔗 &nbsp; LinkedIn</a>
+    </div>
+    <span class="contact-loc">📍 Houston, TX · New York City, NY</span>
+  </div>
+</div>
+</div>
+
+<!-- EXPAND MODAL — big view of a project -->
+<div class="expand-overlay" id="expandModal" onclick="if(event.target===this)closeExpand()">
+  <div class="expand-panel"></div>
+</div>
+
+<footer>© 2026 Nikita Sangani — Built with intention ✿</footer>
+
+<script>
+// PAGE NAVIGATION
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const navEl=document.getElementById('nav-'+id);
+  if(navEl)navEl.classList.add('active');
+  document.querySelector('.nav-links')?.classList.remove('open');
+  window.scrollTo(0,0);
+  // Reset any flipped cards when leaving work page
+  if(id!=='work'){document.querySelectorAll('.flip-card.flipped').forEach(c=>c.classList.remove('flipped'))}
+}
+
+// FILTER
+function filterProjects(cat,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.flip-card').forEach(c=>{
+    // un-flip when filtering so they all reset to front
+    c.classList.remove('flipped');
+    if(cat==='all'||c.dataset.cat.includes(cat)){c.style.display='flex'}
+    else{c.style.display='none'}
+  });
+}
+
+// ═══════ PROJECTS DATA ═══════
+const projects=[
+  {id:'overburnt',cat:'strategy creative client',flagship:true,dot:'var(--rose)',num:'✦ Flagship',
+    title:'Overburnt — AI-Powered Burnout Companion',
+    role:'Founder · Product Vision · AI Interaction Design',
+    teaser:'An adaptive AI companion that reads a user\'s emotional state and converts overwhelm into small, achievable actions.',
+    tags:['Founder','AI','Product Strategy','Capstone'],
+    case:{
+      label:'Flagship Project',
+      title:'Overburnt — AI-Powered Burnout Companion',
+      role:'Founder · Product Vision · AI Interaction Design',
+      sections:[
+        {label:'The Problem',text:'Most productivity tools add pressure instead of reducing it — they treat burnout as a scheduling issue rather than emotional overload. Users facing cognitive fatigue don\'t need more structure; they need fewer decisions.'},
+        {label:'The Strategy',text:'Reframed burnout as a decision-fatigue problem. Designed an AI system that adapts to the user\'s emotional state and generates context-aware micro-actions — turning recovery into something low-effort and repeatable.'},
+        {label:'The Outcome',text:'Pitched at Wix\'s NYC HQ. Completed the NYU Startup Accelerator Bootcamp. Currently developing as an NYU capstone with investor-ready projections and a live prototype.'},
+        {label:'Why This Matters',text:'Proves AI can move beyond automation into adaptive, human-centered support — a category with real retention and wellness implications for mental-health products.'}
+      ],
+      italic:'Designing for burnout means removing friction, not adding structure.',
+      highlights:['Owned vision, product, brand, and financial model end-to-end','AI personalization driven by emotional state, not task lists','Investor-ready model projecting 12% monthly user growth'],
+      tags:['Founder','AI','Product Strategy','Capstone'],
+      link:'https://canva.link/xizk50vm6zbo9ys'
+    }},
+
+  {id:'streaming',cat:'analytics',dot:'var(--sage)',num:'02',
+    title:'Music Streaming — User Segmentation',
+    role:'Data Analytics · Clustering · Behavioral Research',
+    teaser:'Identified 3 high-value user segments from 5,000+ listeners to inform a sharper subscription and retention strategy.',
+    tags:['K-Means','SQL','Decision Trees'],
+    case:{
+      label:'Project 02',
+      title:'Music Streaming — User Segmentation',
+      role:'Data Analytics · Segmentation · Decision Modeling',
+      sections:[
+        {label:'The Insight',text:'Streaming platforms were treating listeners as one audience. A closer look at 5,000+ users revealed three distinct behavioral groups — each with different monetization potential.'},
+        {label:'The Strategy',text:'Applied K-Means clustering, decision trees, and regression to surface the segments: Vibing Gen Zs, Easygoing Golden Listeners, and On-the-Go Professionals. Mapped each to a targeted subscription and engagement play.'},
+        {label:'The Outcome',text:'Pinpointed the top 25% of users (138+ min/day) as prime premium-conversion targets. Delivered a 30-slide strategy translating the data into a segment-specific marketing roadmap.'},
+        {label:'Why This Matters',text:'Turns a generic user base into a prioritized opportunity map — letting platforms spend acquisition and retention dollars where they actually convert.'}
+      ],
+      highlights:['Isolated 3 behavioral segments from 5,000+ users','Quantified premium-conversion potential in the top 25%','Translated clustering output into a segment-led marketing plan'],
+      tags:['K-Means','Decision Trees','SQL','Chi-Square'],
+      link:'https://canva.link/od2tlu8f3b9xs8w'
+    }},
+
+  {id:'comcast',cat:'client analytics',dot:'var(--mauve)',num:'03',
+    title:'Comcast Xfinity — Gen Z Strategy',
+    role:'Strategy Lead · Client Communication · Primary Research',
+    teaser:'Surfaced four Gen Z pain points through primary research to reshape Xfinity\'s Houston market-share strategy.',
+    tags:['Client','Survey','Research'],
+    case:{
+      label:'Project 03',
+      title:'Comcast Xfinity — Gen Z Strategy',
+      role:'Strategy Lead · Client Project · Primary Research',
+      sections:[
+        {label:'The Insight',text:'Xfinity was losing Gen Z share in Houston without a clear view of why. Existing research was surface-level and missed the behaviors driving the switch to T-Mobile and AT&T.'},
+        {label:'The Strategy',text:'Led a 106-response primary research study to pinpoint four critical pain points — reliability, price transparency, customer service, and brand perception — then benchmarked against direct competitors.'},
+        {label:'The Outcome',text:'Delivered client-ready findings to Comcast with campaign concepts anchored in the verified pain points. First client-facing engagement I owned from research design to presentation.'},
+        {label:'Why This Matters',text:'Shows how primary research — not just industry reports — translates into targeting decisions that move market share in a specific region.'}
+      ],
+      highlights:['Designed and deployed a 106-response primary study','Identified 4 Gen Z pain points benchmarked vs. T-Mobile and AT&T','Led client communication from research through recommendation'],
+      tags:['Primary Research','Survey','Telecom','Client'],
+      link:'https://canva.link/vgjyq5m3qe08p3u'
+    }},
+
+  {id:'oreo',cat:'strategy creative',dot:'var(--mauve)',num:'04',
+    title:'Oreo — Flavors Without Borders',
+    role:'Experiential Campaign · Consumer Engagement',
+    teaser:'A globally-inspired experiential campaign built to lift brand visibility 10% by turning Oreo into a cultural connector.',
+    tags:['Campaign','VR','Global'],
+    case:{
+      label:'Project 04',
+      title:'Oreo — Flavors Without Borders',
+      role:'Experiential Campaign · Consumer Engagement',
+      sections:[
+        {label:'The Insight',text:'Oreo had broad awareness but limited cultural relevance among multicultural Gen Z consumers. The flavor range had global potential the brand wasn\'t leveraging.'},
+        {label:'The Strategy',text:'Positioned Oreo as a cultural connector through three limited-edition global flavors (Matcha, Tiramisu, Lamington), a VR treasure hunt linking them to world cities, and a Times Square pop-up activating the story live.'},
+        {label:'The Outcome',text:'Full experiential system — product, VR, retail, and social — engineered to drive a 10% lift in brand visibility and measurable sales engagement.'},
+        {label:'Why This Matters',text:'Shows how a legacy CPG brand can stay culturally relevant by turning flavor innovation into a shareable experience, not a shelf SKU.'}
+      ],
+      highlights:['Built the "Flavors Without Borders" concept and VR experience','Developed limited-edition global flavor packs tied to cultural moments','Designed a hashtag-driven multi-platform rollout for Gen Z reach'],
+      tags:['Campaign Strategy','VR','Creative Direction'],
+      link:'https://canva.link/bj88ilpsgapuryi'
+    }},
+
+  {id:'huawei',cat:'strategy',dot:'var(--mauve)',num:'05',
+    title:'Huawei — U.S. Market Comeback',
+    role:'Policy-Driven Market Entry · Geopolitical Strategy',
+    teaser:'A permanent campaign strategy re-opening the U.S. market for Huawei by working with — not around — regulatory constraints.',
+    tags:['Policy','Perception Map','Campaign'],
+    case:{
+      label:'Project 05',
+      title:'Huawei — U.S. Market Comeback',
+      role:'Policy-Driven Strategy · Consumer Trust Rebuilding',
+      sections:[
+        {label:'The Insight',text:'Huawei\'s U.S. block wasn\'t purely a trade issue — it was a trust problem. Re-entry needed a path that addressed sanctions and consumer perception simultaneously.'},
+        {label:'The Strategy',text:'Mapped consumer perception along Innovation vs. Trust axes, then proposed six market-entry plays — anchored by a U.S.-specific subsidiary model inspired by the TikTok/ByteDance precedent and third-party licensing to bypass direct restrictions.'},
+        {label:'The Outcome',text:'Delivered a permanent campaign framework with privacy-forward messaging, compliant market structures, and a geopolitical risk-adjusted rollout plan.'},
+        {label:'Why This Matters',text:'Reframes "restricted market" as a strategic design constraint — showing how brands can structure entry around policy instead of waiting it out.'}
+      ],
+      highlights:['Designed a compliance-aware market-entry framework','Proposed subsidiary model modeled on ByteDance precedent','Built perception map driving privacy-forward messaging strategy'],
+      tags:['Permanent Campaign','Policy','Perception Map'],
+      link:'https://canva.link/voqfapyvu7zcdnu'
+    }},
+
+  {id:'copia',cat:'strategy creative',dot:'var(--sage)',num:'06',
+    title:'Copia Gummies — Brand Development',
+    role:'Brand Strategy · Financial Modeling · DTC',
+    teaser:'A pre-launch DTC wellness brand engineered to scale from $400K to $1.5M in two years through modular product and subscription design.',
+    tags:['DTC','Brand','Financial Model'],
+    case:{
+      label:'Project 06',
+      title:'Copia Gummies — Brand Development',
+      role:'Brand Strategy · Financial Modeling · Packaging',
+      sections:[
+        {label:'The Insight',text:'The wellness supplement space was saturated with lookalike SKUs and flat pricing. Differentiation had to come from the product experience, not just the formula.'},
+        {label:'The Strategy',text:'Built a magnetic modular packaging system that lets users mix supplements, paired with "Léa" — a leaf-inspired brand mascot — and a tiered subscription model designed to grow AOV.'},
+        {label:'The Outcome',text:'Full go-to-market strategy with projected $400K–$500K Year 1 revenue scaling to $1.5M by Year 2, backed by an influencer storytelling framework.'},
+        {label:'Why This Matters',text:'Demonstrates how modular product design and subscription tiers can protect margin and retention in a category where most DTC brands compete on price.'}
+      ],
+      highlights:['Built the DTC pricing and financial model end-to-end','Designed "Léa" mascot system + influencer storytelling framework','Developed tiered subscription model structured to grow AOV'],
+      tags:['DTC','Brand Character','Financial Modeling','Wellness'],
+      link:'https://canva.link/sqmrnfjbrbc3hwd'
+    }},
+
+  {id:'burger',cat:'analytics strategy',dot:'var(--rose)',num:'07',
+    title:'7th Street Burger — Database & Strategy',
+    role:'Database Design · Customer Segmentation',
+    teaser:'Turned scattered POS, marketing, and social data into a unified database — and surfaced catering as an untapped revenue line.',
+    tags:['ERD','SQL','Segmentation'],
+    case:{
+      label:'Project 07',
+      title:'7th Street Burger — Database & Strategy',
+      role:'Database Design · Segmentation · Marketing Analytics',
+      sections:[
+        {label:'The Insight',text:'A viral NYC smash burger chain had strong demand signals across TikTok and Instagram but no connected data view to act on them. POS, marketing, and social lived in silos.'},
+        {label:'The Strategy',text:'Built a relational database (ERD) unifying customers, orders, products, and social engagement. Segmented customers into four groups and analyzed TikTok virality (100K–1M+ views) against Instagram\'s loyal base.'},
+        {label:'The Outcome',text:'Identified corporate catering as an untapped revenue line — backed by the 11% foodservice growth in that segment — and delivered a data-driven acquisition plan.'},
+        {label:'Why This Matters',text:'Shows how connecting siloed operational data turns anecdotal demand signals into a prioritized, defensible growth roadmap.'}
+      ],
+      highlights:['Designed relational ERD unifying POS, marketing, and social data','Quantified TikTok virality vs. Instagram loyalty split','Surfaced catering as a growth lever backed by 11% segment growth'],
+      tags:['ERD','SQL','Segmentation','NYC'],
+      link:'https://canva.link/ps3nsfo50ccrvog',
+      link2:'https://canva.link/pzm96mg6hko1ed3'
+    }},
+
+  {id:'creative',cat:'creative',dot:'var(--blush)',num:'08',
+    title:'Content & Creative Portfolio',
+    role:'Video Production · Social Media · Graphic Design',
+    teaser:'A multi-format content body of work driving 500+ interactions per post and 20K monthly views across student and brand channels.',
+    tags:['Video','Canva','Content'],
+    case:{
+      label:'Project 08',
+      title:'Content & Creative Portfolio',
+      role:'Video Production · Social · Graphic Design',
+      sections:[
+        {label:'The Insight',text:'Organic social reach for student and community orgs was declining. Winning attention required treating each post like a campaign, not a checkbox.'},
+        {label:'The Strategy',text:'Produced content spanning editorial posts (Sunscreen 101 for @DMGIRLS), interactive formats (tote bag quiz with QR), event videos, and illustration work — each optimized for the platform it lived on.'},
+        {label:'The Outcome',text:'Consistently hit 500+ interactions per post and 20K monthly Instagram views. Also led peer workshops on video editing, audio, and photography to scale the capability.'},
+        {label:'Why This Matters',text:'Shows how content that starts with platform-native behavior — not template thinking — compounds into measurable reach and engagement.'}
+      ],
+      highlights:['500+ interactions per post, 20K monthly IG views','Led peer workshops on video, audio, and photography','Produced content for @DMGIRLS, Roarin\' Raas, and NYU events'],
+      tags:['Video Production','Canva','CapCut','Graphic Design'],
+      link:'https://canva.link/w2zz9uiiipfnqik'
+    }}
+];
+
+// ═══════ RENDER FLIP CARDS ═══════
+function renderCards(){
+  const grid=document.getElementById('projectGrid');
+  grid.innerHTML=projects.map(p=>{
+    const c=p.case;
+    const sectionsHtml=c.sections.map(s=>{
+      const isWhy=/why\s+this\s+matters/i.test(s.label);
+      return `<div class="case-section${isWhy?' case-why':''}"><div class="case-section-label">${s.label}</div><p>${s.text}</p></div>`;
+    }).join('');
+    const highlightsHtml=c.highlights?`<ul class="case-highlights">${c.highlights.map(h=>`<li>${h}</li>`).join('')}</ul>`:'';
+    const italicHtml=c.italic?`<p class="case-italic">${c.italic}</p>`:'';
+    const tagsHtml=c.tags?`<div class="case-tags">${c.tags.map(t=>`<span class="p-tag">${t}</span>`).join('')}</div>`:'';
+    let ctaHtml='';
+    if(c.link){
+      ctaHtml=`<div class="case-cta"><a class="primary" href="${c.link}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">View Full Project →</a>`;
+      if(c.link2){ctaHtml+=`<a class="outline" href="${c.link2}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Part 2 →</a>`;}
+      ctaHtml+=`</div>`;
+    }
+    return `
+      <div class="flip-card ${p.flagship?'flagship':''}" data-cat="${p.cat}" data-project-id="${p.id}" onclick="flipCard(this,event)">
+        <div class="flip-inner">
+        <div class="flip-face flip-face-front">
+          <div class="accent-dot" style="background:${p.dot}"></div>
+          <div class="p-num">${p.num}</div>
+          <h3>${p.title}</h3>
+          <div class="p-role">${p.role}</div>
+          <p class="p-teaser">${p.teaser}</p>
+          <div class="p-tags">${p.tags.map(t=>`<span class="p-tag">${t}</span>`).join('')}</div>
+          <div class="flip-hint">
+            Flip to read
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+          </div>
+        </div>
+        <div class="flip-face flip-face-back" onclick="flipBack(this,event)">
+          <div class="flip-back-controls">
+            <button class="flip-icon-btn" onclick="event.stopPropagation();expandCard(this.closest('.flip-card'),event)" aria-label="Expand" title="Expand">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </button>
+            <button class="flip-icon-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="Flip back" title="Flip back">×</button>
+          </div>
+          <div class="case-label">${c.label}</div>
+          <div class="case-title">${c.title}</div>
+          <div class="case-role">${c.role}</div>
+          ${sectionsHtml}
+          ${italicHtml}
+          ${highlightsHtml}
+          ${tagsHtml}
+          ${ctaHtml}
+          <div class="flip-back-hint">click anywhere to flip back</div>
+        </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function flipCard(el,e){
+  if(el.classList.contains('flipped'))return;
+  el.classList.add('flipped');
+  const back=el.querySelector('.flip-face-back');
+  if(back)back.scrollTop=0;
+}
+
+function unflipCard(btn){
+  const card=btn.closest('.flip-card');
+  if(card)card.classList.remove('flipped');
+}
+
+// Click anywhere on the back face to flip back (but ignore clicks on links/buttons)
+function flipBack(backEl,e){
+  // Don't flip back if the click was on an interactive element
+  const tag=e.target.tagName;
+  if(tag==='A'||tag==='BUTTON'||tag==='SVG'||e.target.closest('a')||e.target.closest('button'))return;
+  // Stop propagation so the outer .flip-card onclick doesn't immediately re-flip
+  e.stopPropagation();
+  const card=backEl.closest('.flip-card');
+  if(card)card.classList.remove('flipped');
+}
+
+// Expand a project into a large modal overlay
+function expandCard(cardEl,e){
+  e.stopPropagation();
+  const id=cardEl.dataset.projectId;
+  const project=projects.find(p=>p.id===id);
+  if(!project)return;
+  const c=project.case;
+  const sectionsHtml=c.sections.map(s=>{
+    const isWhy=/why\s+this\s+matters/i.test(s.label);
+    return `<div class="expand-section${isWhy?' expand-why':''}"><div class="expand-section-label">${s.label}</div><p>${s.text}</p></div>`;
+  }).join('');
+  const highlightsHtml=c.highlights?`<ul class="expand-highlights">${c.highlights.map(h=>`<li>${h}</li>`).join('')}</ul>`:'';
+  const italicHtml=c.italic?`<p class="expand-italic">${c.italic}</p>`:'';
+  const tagsHtml=c.tags?`<div class="expand-tags">${c.tags.map(t=>`<span class="p-tag">${t}</span>`).join('')}</div>`:'';
+  let ctaHtml='';
+  if(c.link){
+    ctaHtml=`<div class="expand-cta"><a class="primary" href="${c.link}" target="_blank" rel="noopener">View Full Project →</a>`;
+    if(c.link2){ctaHtml+=`<a class="outline" href="${c.link2}" target="_blank" rel="noopener">View Part 2 →</a>`;}
+    ctaHtml+=`</div>`;
+  }
+  const modal=document.getElementById('expandModal');
+  modal.querySelector('.expand-panel').innerHTML=`
+    <button class="expand-close" onclick="closeExpand()" aria-label="Close">×</button>
+    <div class="expand-label">${c.label}</div>
+    <div class="expand-title">${c.title}</div>
+    <div class="expand-role">${c.role}</div>
+    ${sectionsHtml}
+    ${italicHtml}
+    ${highlightsHtml}
+    ${tagsHtml}
+    ${ctaHtml}
+  `;
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeExpand(){
+  const modal=document.getElementById('expandModal');
+  modal.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// Initial render
+renderCards();
+
+// Scroll progress bar
+window.addEventListener('scroll',()=>{
+  const scrolled=window.scrollY;
+  const height=document.documentElement.scrollHeight-window.innerHeight;
+  const progress=height>0?(scrolled/height)*100:0;
+  document.getElementById('scrollProgress').style.width=progress+'%';
+});
+
+// Parallax blobs on mouse move
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-.5)*20;
+  const y=(e.clientY/window.innerHeight-.5)*20;
+  document.querySelectorAll('.blob-1').forEach(b=>{b.style.transform=`translate(${x}px,${y}px)`});
+  document.querySelectorAll('.blob-2').forEach(b=>{b.style.transform=`translate(${-x}px,${-y}px)`});
+});
+
+// Cursor glow effect
+const glow=document.createElement('div');
+glow.style.cssText='position:fixed;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,123,123,0.06),transparent 70%);pointer-events:none;z-index:1;transition:transform .15s ease;will-change:transform';
+document.body.appendChild(glow);
+document.addEventListener('mousemove',e=>{
+  glow.style.transform=`translate(${e.clientX-100}px,${e.clientY-100}px)`;
+});
+
+// Scroll reveal
+const revealObserver=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      e.target.style.animation=`fadeUp .5s ease ${i*0.05}s both`;
+      revealObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.08});
+document.querySelectorAll('.stat,.cert-card,.exp-card,.edu-card,.beyond-pill,.skill-pill').forEach(el=>revealObserver.observe(el));
+
+// Back to top button
+const topBtn=document.createElement('div');
+topBtn.innerHTML='↑';
+topBtn.style.cssText='position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:#2c2421;color:var(--blush);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;opacity:0;transition:all .3s;z-index:90;box-shadow:0 4px 16px rgba(0,0,0,0.15)';
+topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+topBtn.addEventListener('mouseenter',()=>{topBtn.style.background='#c97b7b';topBtn.style.color='#fff';topBtn.style.transform='translateY(-3px)'});
+topBtn.addEventListener('mouseleave',()=>{topBtn.style.background='#2c2421';topBtn.style.color='var(--blush)';topBtn.style.transform='translateY(0)'});
+document.body.appendChild(topBtn);
+window.addEventListener('scroll',()=>{topBtn.style.opacity=window.scrollY>300?'1':'0'});
+
+// Stat counter animation
+const countObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const final=el.textContent;
+      const num=parseInt(final);
+      if(!isNaN(num)&&num<100){
+        let current=0;
+        const step=Math.max(1,Math.floor(num/20));
+        const interval=setInterval(()=>{
+          current+=step;
+          if(current>=num){current=num;clearInterval(interval);el.textContent=final}
+          else{el.textContent=current}
+        },40);
+      }
+      countObserver.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.stat .num').forEach(el=>countObserver.observe(el));
+
+// Flower Easter egg
+const flowers=['✿','❀','✾','❁','✤','⚘','❃','✥'];
+let flowerIdx=0;
+document.querySelector('.hero-flower').addEventListener('click',function(){
+  flowerIdx=(flowerIdx+1)%flowers.length;
+  this.textContent=flowers[flowerIdx];
+  this.style.transform='rotate(360deg) scale(1.3)';
+  setTimeout(()=>{this.style.transform=''},400);
+});
+
+// Time-based greeting
+const h=new Date().getHours();
+const greetings=h<12?'good morning, welcome in.':h<17?'good afternoon, glad you\'re here.':h<21?'good evening, thanks for stopping by.':'burning the midnight oil? same here.';
+document.getElementById('greeting').textContent=greetings;
+
+// Easter egg — type "nikita"
+let typed='';
+document.addEventListener('keypress',e=>{
+  typed+=e.key.toLowerCase();
+  if(typed.includes('nikita')){
+    typed='';
+    for(let i=0;i<40;i++){
+      const c=document.createElement('div');
+      const colors=['#c97b7b','#e8b4b8','#9b7ea4','#8fa68f','#f5dfe1','#d4a574'];
+      c.style.cssText=`position:fixed;top:-10px;left:${Math.random()*100}vw;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>.5?'50%':'2px'};z-index:9999;pointer-events:none;animation:confettiFall ${1.5+Math.random()*2}s ease-out forwards;animation-delay:${Math.random()*0.5}s`;
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),4000);
+    }
+  }
+  if(typed.length>20)typed=typed.slice(-10);
+});
+
+// Escape key un-flips any flipped card and closes expand modal
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    const modal=document.getElementById('expandModal');
+    if(modal&&modal.classList.contains('open')){
+      closeExpand();
+    }else{
+      document.querySelectorAll('.flip-card.flipped').forEach(c=>c.classList.remove('flipped'));
+    }
+  }
+});
+
+// Confetti animation
+const confettiStyle=document.createElement('style');
+confettiStyle.textContent=`@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}100%{transform:translateY(100vh) rotate(${360+Math.random()*360}deg) scale(0.5);opacity:0}}`;
+document.head.appendChild(confettiStyle);
+</script>
+</body>
+</html>
